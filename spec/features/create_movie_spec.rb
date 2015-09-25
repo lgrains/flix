@@ -18,11 +18,11 @@ describe "Creating a new movie" do
     fill_in "Duration", with: "123 min"
     fill_in "Image file name", with: "movie.png"
 
-    click_button 'Create Movie'
+    click_button "Create Movie"
 
+    expect(page).to have_text("Movie successfully created!")
     expect(current_path).to eq(movie_path(Movie.last))
-
-    expect(page).to have_text('New Movie Title')
+    expect(page).to have_text("New Movie Title")
   end
 
   it "does not save the movie if it's invalid" do

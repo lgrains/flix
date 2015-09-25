@@ -190,13 +190,17 @@ ol#reviews {
   text-align: center;
   text-transform: uppercase;
   box-shadow: #ffc 0 0 4px;
-  
+
   &.notice {
     background-color: $flash-notice-color;
   }
 
   &.alert {
     background-color: $flash-alert-color;
+  }
+
+  &.danger {
+    background-color: $flash-danger-color
   }
 }
 
