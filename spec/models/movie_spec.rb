@@ -138,4 +138,34 @@ describe "A movie" do
 
     expect(Movie.released).to eq([movie3, movie2, movie1])
   end
+
+  it "has many reviews" do
+    movie = Movie.new(movie_attributes)
+
+    review1 = movie.reviews.new(review_attributes)
+    review2 = movie.reviews.new(review_attributes)
+
+    expect(movie.reviews).to include(review1)
+    expect(movie.reviews).to include(review2)
+  end
+
+  it "deletes associated reviews" do
+    movie = Movie.create(movie_attributes)
+
+    movie.reviews.create(review_attributes)
+
+    expect {
+      movie.destroy
+    }.to change(Review, :count).by(-1)
+  end
+
+  it "calculates the average number of review stars" do
+    movie = Movie.create(movie_attributes)
+
+    movie.reviews.create(review_attributes(stars: 1))
+    movie.reviews.create(review_attributes(stars: 3))
+    movie.reviews.create(review_attributes(stars: 5))
+
+    expect(movie.average_stars).to eq(3)
+  end
 end

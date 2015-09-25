@@ -10,6 +10,9 @@ class Movie < ActiveRecord::Base
     with:    /\w+\.(gif|jpg|png)\z/i,
     message: "must reference a GIF, JPG, or PNG image"
   }
+
+  has_many :reviews, dependent: :destroy
+
   def self.released
     where("released_on <= ?", Time.now).order("released_on desc")
   end
@@ -28,5 +31,9 @@ class Movie < ActiveRecord::Base
 
   def flop?
     total_gross.blank? || total_gross < 50000000
+  end
+
+  def average_stars
+    reviews.average(:stars)
   end
 end
