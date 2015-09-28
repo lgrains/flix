@@ -10,7 +10,7 @@
       <span class="user">by <%= review.name %></span>
       <span class="date"><%= time_ago_in_words(review.created_at) %> ago</span>
       <p>
-        &quot;<%= review.comment %>&quot;
+        &quot;<%= truncate(review.comment, length: 200, separator: " ") %>&quot;
       </p>
     </li>
   <% end %>
