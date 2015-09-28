@@ -76,7 +76,7 @@ Movie.create!([
     description:
     %{
       Patience Philips seems destined to spend her life apologizing for taking up space.
-      Despite her artistic ability&mdash;she has a more than respectable career as a graphic
+      Despite her artistic ability she has a more than respectable career as a graphic
       designer.
     }.squish,
     image_file_name: "catwoman.jpg",
