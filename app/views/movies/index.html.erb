@@ -1,6 +1,7 @@
 <ul id="movies">
+
   <% @movies.each do |movie| %>
-    <li>
+    <li id="movie_<%= movie.id %>">
       <article class="movie">
         <header>
           <%= image_for(movie) %>
@@ -11,6 +12,10 @@
         <p>
           <%= format_average_stars(movie) %>
         </p>
+        <p>
+          <%= render "shared/recent_reviews", movie: movie %>
+        </p>
+
         <p>
           <%= truncate(movie.description, length: 150, separator: ' ') %>
         </p>

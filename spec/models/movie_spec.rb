@@ -168,4 +168,16 @@ describe "A movie" do
 
     expect(movie.average_stars).to eq(3)
   end
+
+  it "returns the two most recent reviews" do
+    movie = Movie.create(movie_attributes)
+    review1 = movie.reviews.create(review_attributes(created_at: Time.now))
+    review2 = movie.reviews.create(review_attributes(created_at: Time.now - 3.days))
+    review3 = movie.reviews.create(review_attributes(created_at: Time.now - 6.days))
+
+    expect(movie.recent_reviews).to include(review1)
+    expect(movie.recent_reviews).to include(review2)
+    expect(movie.recent_reviews).to_not include(review3)
+
+  end
 end

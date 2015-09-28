@@ -1,0 +1,14 @@
+<% if movie.recent_reviews.any? %>
+  <h3>Recent Reviews</h3>
+  <ul id="reviews">
+    <% movie.recent_reviews.each do |review| %>
+      <li>
+        <%= review.comment %>
+      </li>
+    <% end %>
+  </ul>
+  <p>
+    Read all <%= link_to pluralize(movie.reviews.size, "review"),
+                    movie_reviews_path(movie) %>
+  </p>
+<% end %>

@@ -37,6 +37,10 @@
             movie_reviews_path(@movie) %>
 
   <footer>
+    <p>
+      <%= render "shared/recent_reviews", movie: @movie %>
+    </p>
+
   <%= link_to "Write Review", new_movie_review_path(@movie),
              class: 'button ok review' %>
     <nav>
