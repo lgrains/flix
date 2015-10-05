@@ -19,3 +19,12 @@ def review_attributes(overrides = {})
     comment: "I laughed, I cried, I spilled my popcorn!"
   }.merge(overrides)
 end
+
+def user_attributes(overrides = {})
+  {
+    name: "Louise",
+    email: "louise@example.com",
+    password: "p@ssw0rd",
+    password_confirmation: "p@ssw0rd"
+  }.merge(overrides)
+end
