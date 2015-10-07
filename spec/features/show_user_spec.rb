@@ -1,5 +1,3 @@
-# put this in the new file spec/features/show_user_spec.rb
-
 require 'spec_helper'
 
 describe "Viewing a user's profile page" do
@@ -11,6 +9,7 @@ describe "Viewing a user's profile page" do
 
     expect(page).to have_text(user.name)
     expect(page).to have_text(user.email)
+    expect(page).to have_text("Member Since")
+    expect(page).to have_text(user.created_at.strftime("%B %Y"))
   end
-
 end
