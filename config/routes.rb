@@ -8,4 +8,8 @@ Rails.application.routes.draw do
   resources :movies do
     resources :reviews
   end
+
+  resource :session
+
+  get "sign_in" => "sessions#new"
 end
