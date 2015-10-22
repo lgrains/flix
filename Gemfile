@@ -57,6 +57,7 @@ group :test, :development do
   gem 'pry-rails'
   gem 'pry-byebug'
   gem 'pry-stack_explorer'
+  gem "launchy"
 end
 
 group :test do
