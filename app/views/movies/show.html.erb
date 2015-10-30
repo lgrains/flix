@@ -11,12 +11,40 @@
     </p>
 
   <p>
+    <%= pluralize(@critics.count, "critic") %>
+  </p>
+  <% if @critics.any? %>
+    <h3>Critics</h3>
+    <ul>
+      <% @critics.each do |user| %>
+        <li>
+          <%= link_to user.name, user %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <p>
     <%= @movie.description %>
   </p>
 
-  <h3 class="no-rule">
+  <p>
     <%= @movie.rating %> &bull; <%= @movie.duration %>
-  </h3>
+  </p>
+
+  <p>
+    <%= pluralize(@fans.count, "fan") %>
+  </p>
+  <% if @fans.any? %>
+    <h3>Fans</h3>
+    <ul>
+      <% @fans.each do |user| %>
+        <li>
+          <%= link_to user.name, user %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
 
   <h3>Cast</h3>
   <p>

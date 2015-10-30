@@ -104,23 +104,48 @@ Movie.create!([
   }
 ])
 
-Review.create!([
+User.create!([
   {
-    name: "Roger Ebert",
-    comment: "I laughed, I cried, I spilled my popcorn!",
-    stars: 3,
-    movie: Movie.find(1)
+    name: "Roger",
+    username: "RogerRabbit",
+    email: "rober@rabbit.com",
+    password: "p@ssw0rd"
   },
   {
-    name: "Gene Siskel",
-    comment: "I'm a better reviewer than he is.",
-    stars: 5,
-    movie: Movie.find(1)
+    name: "William",
+    username: "FreeWilly",
+    email: "willy@whale.com",
+    password: "p@ssw0rd"
   },
   {
-    name: "Peter Travers",
-    comment: "It's been years since a movie superhero was this fierce and this funny.",
-    stars: 1,
-    movie: Movie.find(1)
+    name: "Louise",
+    username: "rainyglade",
+    email: "louise@example.com",
+    password: "p@ssw0rd"
   }
 ])
+
+Review.create!([
+  {
+    comment: "I laughed, I cried, I spilled my popcorn!",
+    stars: 3,
+    movie: Movie.find(1),
+    user: User.find_by(name: "William")
+  },
+  {
+    comment: "I'm a better reviewer than he is.",
+    stars: 5,
+    movie: Movie.find(1),
+    user: User.find_by(name: "Roger")
+  },
+  {
+    comment: "It's been years since a movie superhero was this fierce and this funny.",
+    stars: 1,
+    movie: Movie.find(1),
+    user: User.find_by(name: "Louise")
+  }
+])
+
+movie = Movie.find_by(title: "Iron Man")
+movie.fans << User.find_by(name: "Roger")
+movie.fans << User.find_by(name: "William")

@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151022185044) do
+ActiveRecord::Schema.define(version: 20151030180316) do
+
+  create_table "favorites", force: true do |t|
+    t.integer  "movie_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "favorites", ["movie_id"], name: "index_favorites_on_movie_id"
+  add_index "favorites", ["user_id"], name: "index_favorites_on_user_id"
 
   create_table "movies", force: true do |t|
     t.string   "title"
@@ -28,13 +38,13 @@ ActiveRecord::Schema.define(version: 20151022185044) do
   end
 
   create_table "reviews", force: true do |t|
-    t.string   "name"
     t.integer  "stars"
     t.text     "comment"
     t.integer  "movie_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "location"
+    t.integer  "user_id"
   end
 
   add_index "reviews", ["movie_id"], name: "index_reviews_on_movie_id"
