@@ -1,6 +1,11 @@
 class User < ActiveRecord::Base
   has_secure_password
 
+  has_many :reviews, dependent: :destroy
+  has_many :movie_reviews, through: :reviews, source: :user
+  has_many :favorites, dependent: :destroy
+  has_many :favorite_movies, through: :favorites, source: :movie
+
   validates :name, presence: true
   validates :email, presence: true, format:  /\A\S+@\S+\z/, uniqueness: { case_sensitive: false }
   validates :password, length: { minimum: 8, allow_blank: true }

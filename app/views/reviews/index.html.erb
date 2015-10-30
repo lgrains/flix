@@ -7,7 +7,7 @@
   <% @reviews.each do |review| %>
     <li>
       <span class="review"><%= pluralize(review.stars, 'star') %></span>
-      <span class="user">by <%= review.name %></span>
+      <span class="user">by <%= link_to review.user.name %></span>
       <span class="date"><%= time_ago_in_words(review.created_at) %> ago</span>
       <p>
         &quot;<%= truncate(review.comment, length: 200, separator: " ") %>&quot;
