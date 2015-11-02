@@ -1,0 +1,16 @@
+<h3> Movies in the <%= @genre.name %> Genre </h3>
+
+  <% @genre.movies.each do |movie| %>
+    <%= link_to movie.title, movie %>
+  <% end %>
+
+  <footer>
+    <nav>
+      <% if current_user_admin? %>
+        <%= link_to 'Edit', edit_genre_path(@genre), class: 'button' %>
+        <%= link_to 'Delete', @genre,
+                    class: 'button',
+                    method: :delete, data: { confirm: 'Are you sure?' } %>
+      <% end %>
+    </nav>
+  </footer>

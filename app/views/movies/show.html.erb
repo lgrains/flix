@@ -54,6 +54,18 @@
     <% end %>
   <% end %>
 
+  <% if @genres.any? %>
+    <h3>Genres</h3>
+    <ul>
+      <% @genres.each do |genre| %>
+        <li>
+          <%= link_to genre.name, genre %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+
+
   <h3>Cast</h3>
   <p>
     <%= @movie.cast %>

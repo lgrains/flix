@@ -1,0 +1,16 @@
+<%= form_for(@genre) do |f| %>
+  <%= render "shared/errors", object: @genre %>
+  <fieldset>
+    <ol>
+      <li class="required">
+        <%= f.label :name %>
+        <%= f.text_field :name, autofocus: true %>
+      </li>
+    </ol>
+    <p>
+      <%= f.submit %>
+      <%= link_to "Cancel", genres_path, class: 'button' %>
+    </p>
+  </fieldset>
+<% end %>
+
