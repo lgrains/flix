@@ -1,88 +1,28 @@
 require 'spec_helper'
 
-describe "A user" do
+describe User do
+  it { should validate_presence_of(:name) }
+  it { should validate_presence_of(:email) }
+  it { should validate_uniqueness_of(:email).case_insensitive }
+  it { should validate_length_of(:password).is_at_least(8) }
+  it { should validate_confirmation_of(:password) }
+  it { should validate_presence_of(:username) }
+  it { should validate_uniqueness_of(:username).case_insensitive }
+  it { should validate_length_of(:username). is_at_least(5) }
+  it { should  allow_value("jonh@example.com").for(:email) }
+  it { should_not allow_value("foo@").for(:email)}
+  it { should allow_value("mysterious").for(:username) }
+  it { should_not allow_value("Stormy Gus").for(:username)}
 
-  it "requires a name" do
-    user = User.new(name: "")
-
-    user.valid? # populates errors
-    expect(user.errors[:name].any?).to eq(true)
-  end
-
-  it "requires an email" do
-    user = User.new(email: "")
-
-    user.valid?
-
-    expect(user.errors[:email].any?).to eq(true)
-  end
-
-  it "accepts properly formatted email addresses" do
-    emails = %w[user@example.com first.last@example.com]
-    emails.each do |email|
-      user = User.new(email: email)
-      user.valid?
-      expect(user.errors[:email].any?).to eq(false)
-    end
-  end
-
-  it "rejects improperly formatted email addresses" do
-    emails = %w[@ user@ @example.com]
-    emails.each do |email|
-      user = User.new(email: email)
-      user.valid?
-      expect(user.errors[:email].any?).to eq(true)
-    end
-  end
-
-  it "requires a unique, case insensitive email address" do
-    user1 = User.create!(user_attributes)
-
-    user2 = User.new(email: user1.email.upcase)
-    user2.valid?
-    expect(user2.errors[:email].first).to eq("has already been taken")
-  end
-
-  it "accepts properly formatted usernames" do
-    usernames = %w[username UsErNaMe user_name]
-
-    usernames.each do |username|
-      user = User.new(username: username)
-      user.valid?
-      expect(user.errors[:username].any?).to eq(false)
-    end
-  end
-
-  it "rejects improperly formatted usernames" do
-    usernames = %w[user\sname user#name @#$%^&*]
-
-    usernames.each do |username|
-      user = User.new(username: username)
-      user.valid?
-      expect(user.errors[:username].any?).to eq(true)
-    end
-  end
-
-  it "requires a unique, case insensitive username" do
-    user1 = User.create!(user_attributes)
-
-    user2 = User.new(username: user1.username.upcase)
-    user2.valid?
-    expect(user2.errors[:username].first).to eq("has already been taken")
-  end
+  it { should have_many(:reviews).dependent(:destroy) }
+  it { should have_many(:movie_reviews).through(:reviews).source(:user) }
+  it { should have_many(:favorites).dependent(:destroy) }
+  it { should have_many(:favorite_movies).through(:favorites).source(:movie) }
 
   it "is valid with example attributes" do
     user = User.new(user_attributes)
 
     expect(user.valid?).to eq(true)
-  end
-
-  it "requires a password" do
-    user = User.new(password: "")
-
-    user.valid?
-
-    expect(user.errors[:password].any?).to eq(true)
   end
 
   it "requires a password confirmation when a password is present" do

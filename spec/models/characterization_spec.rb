@@ -1,5 +1,6 @@
 require 'spec_helper'
 
 describe Characterization do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it { should belong_to(:movie) }
+  it { should belong_to(:genre) }
 end

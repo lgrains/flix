@@ -10,6 +10,6 @@ require 'spec_helper'
 #     end
 #   end
 # end
-describe FavoritesHelper do
-  pending "add some examples to (or delete) #{__FILE__}"
-end
+# describe FavoritesHelper do
+#   pending "add some examples to (or delete) #{__FILE__}"
+# end

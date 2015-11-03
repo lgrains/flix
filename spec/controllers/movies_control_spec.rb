@@ -42,7 +42,5 @@ describe MoviesController do
 
       expect(response).to redirect_to(root_url)
     end
-
   end
-
 end
