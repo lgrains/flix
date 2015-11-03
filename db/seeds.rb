@@ -149,3 +149,16 @@ Review.create!([
 movie = Movie.find_by(title: "Iron Man")
 movie.fans << User.find_by(name: "Roger")
 movie.fans << User.find_by(name: "William")
+
+Genre.create!([
+  { name: "Action" },
+  { name: "Comedy" },
+  { name: "Drama" },
+  { name: "Romance" },
+  { name: "Thriller" },
+  { name: "Fantasy" },
+  { name: "Documentary" },
+  { name: "Adventure" },
+  { name: "Animation" },
+  { name: "Sci-Fi" }
+])

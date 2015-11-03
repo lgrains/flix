@@ -16,7 +16,7 @@
       </li>
       <li class="required">
         <%= f.label :released_on %>
-        <%= f.date_select :released_on %>
+        <%= f.date_select :released_on, start_year: 1970 %>
       </li>
       <li class="required">
         <%= f.label :total_gross %>
@@ -37,6 +37,9 @@
       <li>
         <%= f.label :director %>
         <%= f.text_field :director %>
+      </li>
+      <li>
+        <%= f.collection_check_boxes(:genre_ids, Genre.all, :id, :name) %>
       </li>
     </ol>
     <p>

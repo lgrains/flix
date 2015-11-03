@@ -1,6 +1,21 @@
 require 'spec_helper'
 
-describe "A movie" do
+RSpec.describe Movie do
+  it { should validate_presence_of(:title) }
+  it { should validate_presence_of(:description) }
+  it { should validate_length_of(:description).is_at_least(25) }
+  it { should validate_presence_of(:released_on) }
+  it { should validate_presence_of(:duration) }
+  it { should validate_numericality_of(:total_gross) }
+  it { should validate_inclusion_of(:rating).in_array(Movie::RATINGS) }
+
+  it { should have_many(:reviews).dependent(:destroy) }
+  it { should have_many(:critics) }
+  it { should have_many(:favorites) }
+  it { should have_many(:fans).through(:favorites) }
+  it { should have_many(:characterizations).dependent(:destroy) }
+  it { should have_many(:genres).through(:characterizations) }
+
   it "is a flop if the total gross is less than $50M" do
     movie = Movie.new(total_gross: 40000000)
 
@@ -23,46 +38,6 @@ describe "A movie" do
     movie = Movie.create(movie_attributes(released_on: 3.months.from_now))
 
     expect(Movie.released).not_to include(movie)
-  end
-
-  it "requires a title" do
-    movie = Movie.new(title: "")
-
-    movie.valid?  # populates errors
-
-    expect(movie.errors[:title].any?).to eq(true)
-  end
-
-  it "requires a description" do
-    movie = Movie.new(description: "")
-
-    movie.valid?
-
-    expect(movie.errors[:description].any?).to eq(true)
-  end
-
-  it "requires a released on date" do
-    movie = Movie.new(released_on: "")
-
-    movie.valid?
-
-    expect(movie.errors[:released_on].any?).to eq(true)
-  end
-
-  it "requires a duration" do
-    movie = Movie.new(duration: "")
-
-    movie.valid?
-
-    expect(movie.errors[:duration].any?).to eq(true)
-  end
-
-  it "requires a description over 24 characters" do
-    movie = Movie.new(description: "X" * 24)
-
-    movie.valid?
-
-    expect(movie.errors[:description].any?).to eq(true)
   end
 
   it "accepts a $0 total gross" do
@@ -107,24 +82,6 @@ describe "A movie" do
     end
   end
 
-  it "accepts any rating that is in an approved list" do
-    ratings = %w[G PG PG-13 R NC-17]
-    ratings.each do |rating|
-      movie = Movie.new(rating: rating)
-      movie.valid?
-      expect(movie.errors[:rating].any?).to eq(false)
-    end
-  end
-
-  it "rejects any rating that is not in the approved list" do
-    ratings = %w[R-13 R-16 R-18 R-21]
-    ratings.each do |rating|
-      movie = Movie.new(rating: rating)
-      movie.valid?
-      expect(movie.errors[:rating].any?).to eq(true)
-    end
-  end
-
   it "is valid with example attributes" do
     movie = Movie.new(movie_attributes)
 
@@ -137,26 +94,6 @@ describe "A movie" do
     movie3 = Movie.create(movie_attributes(released_on: 1.months.ago))
 
     expect(Movie.released).to eq([movie3, movie2, movie1])
-  end
-
-  it "has many reviews" do
-    movie = Movie.new(movie_attributes)
-
-    review1 = movie.reviews.new(review_attributes)
-    review2 = movie.reviews.new(review_attributes)
-
-    expect(movie.reviews).to include(review1)
-    expect(movie.reviews).to include(review2)
-  end
-
-  it "deletes associated reviews" do
-    movie = Movie.create(movie_attributes)
-
-    movie.reviews.create(review_attributes)
-
-    expect {
-      movie.destroy
-    }.to change(Review, :count).by(-1)
   end
 
   it "calculates the average number of review stars" do
@@ -179,17 +116,5 @@ describe "A movie" do
     expect(movie.recent_reviews).to include(review2)
     expect(movie.recent_reviews).to_not include(review3)
 
-  end
-
-  it "has fans" do
-    movie = Movie.new(movie_attributes)
-    fan1 = User.new(user_attributes(email: "larry@example.com"))
-    fan2 = User.new(user_attributes(email: "moe@example.com"))
-
-    movie.favorites.new(user: fan1)
-    movie.favorites.new(user: fan2)
-
-    expect(movie.fans).to include(fan1)
-    expect(movie.fans).to include(fan2)
   end
 end
