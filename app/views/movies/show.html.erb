@@ -1,3 +1,5 @@
+<% content_for(:title, @movie.title) %>
+
 <article id="movie" class="movie">
   <header>
     <%= image_for(@movie) %>
@@ -11,40 +13,12 @@
     </p>
 
   <p>
-    <%= pluralize(@critics.count, "critic") %>
-  </p>
-  <% if @critics.any? %>
-    <h3>Critics</h3>
-    <ul>
-      <% @critics.each do |user| %>
-        <li>
-          <%= link_to user.name, user %>
-        </li>
-      <% end %>
-    </ul>
-  <% end %>
-
-  <p>
     <%= @movie.description %>
   </p>
 
   <p>
     <%= @movie.rating %> &bull; <%= @movie.duration %>
   </p>
-
-  <p>
-    <%= pluralize(@fans.count, "fan") %>
-  </p>
-  <% if @fans.any? %>
-    <h3>Fans</h3>
-    <ul>
-      <% @fans.each do |user| %>
-        <li>
-          <%= link_to user.name, user %>
-        </li>
-      <% end %>
-    </ul>
-  <% end %>
 
   <% if current_user %>
     <% if @current_favorite %>
@@ -53,18 +27,6 @@
       <%= button_to "Fave", movie_favorites_path(@movie), class: "button fave" %>
     <% end %>
   <% end %>
-
-  <% if @genres.any? %>
-    <h3>Genres</h3>
-    <ul>
-      <% @genres.each do |genre| %>
-        <li>
-          <%= link_to genre.name, genre %>
-        </li>
-      <% end %>
-    </ul>
-  <% end %>
-
 
   <h3>Cast</h3>
   <p>
@@ -101,3 +63,7 @@
     </nav>
   </footer>
 </article>
+
+<% content_for :side do %>
+  <%= render 'movie_sidebar_extras' %>
+<% end %>

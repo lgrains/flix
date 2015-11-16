@@ -1,0 +1,32 @@
+<% if @fans.any? %>
+  <h3>Fans</h3>
+  <ul>
+    <% @fans.each do |user| %>
+      <li>
+        <%= link_to user.name, user %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<% if @genres.any? %>
+  <h3>Genres</h3>
+  <ul>
+    <% @genres.each do |genre| %>
+      <li>
+        <%= link_to genre.name, genre %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<% if @critics.any? %>
+  <h3>Critics</h3>
+  <ul>
+    <% @critics.each do |user| %>
+      <li>
+        <%= link_to user.name, user %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
